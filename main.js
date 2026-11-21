@@ -74,8 +74,27 @@ class Main {
     // Adds the employees to the array
     this.employees.push(employee1, employee2, employee3);
 
-    // Temporarily displays the employees for testing
-    console.log(this.employees);
+    // Display the starter employees when the application starts
+    this.display();
+  }
+  // ========================================
+  // DISPLAY METHOD
+  // Shows all employees in the console
+  // ========================================
+  display() {
+    console.log("===== EMPLOYEE TRACKER =====");
+    this.employees.forEach((employee, index) => {
+        // Managers use a standard 40-hour work week
+        const hours = employee.employeeType === "Manager" ? 40 : employee.hours;
+         console.log(
+        `${index + 1}. ${employee.name} | ` +
+        `Age: ${employee.age} | ` +
+        `Salary: $${employee.annualSalary} | ` +
+        `Hours: ${hours} | ` +
+        `Pay Rate: $${employee.payRate} | ` +
+        `Type: ${employee.employeeType}`
+      );
+    });
   }
 }
 
