@@ -37,7 +37,18 @@ class PartTime extends Employee {
 // Inherits from Employee
 // ========================================
 
-class Manager extends Employee {}
+class Manager extends Employee {
+    constructor(name, age, payRate) {
+        super(name, age);
+        this.payRate = payRate;
+        this.employeeType = "Manager";
+    }
+
+    // Function to calculate annual salary for managers and deduct required $1000
+    calculatePay() {
+        this.annualSalary = (this.payRate * 40 * 52) - 1000;
+    }
+}
 
 // ========================================
 // MAIN CLASS
