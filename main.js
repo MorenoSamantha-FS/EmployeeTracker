@@ -76,7 +76,11 @@ class Main {
 
     // Display the starter employees when the application starts
     this.display();
+
+    //Open the menu after displaying the starting employees
+    this.menu();
   }
+
   // ========================================
   // DISPLAY METHOD
   // Shows all employees in the console
@@ -84,17 +88,60 @@ class Main {
   display() {
     console.log("===== EMPLOYEE TRACKER =====");
     this.employees.forEach((employee, index) => {
-        // Managers use a standard 40-hour work week
-        const hours = employee.employeeType === "Manager" ? 40 : employee.hours;
-         console.log(
+      // Managers use a standard 40-hour work week
+      const hours = employee.employeeType === "Manager" ? 40 : employee.hours;
+      console.log(
         `${index + 1}. ${employee.name} | ` +
-        `Age: ${employee.age} | ` +
-        `Salary: $${employee.annualSalary} | ` +
-        `Hours: ${hours} | ` +
-        `Pay Rate: $${employee.payRate} | ` +
-        `Type: ${employee.employeeType}`
+          `Age: ${employee.age} | ` +
+          `Salary: $${employee.annualSalary} | ` +
+          `Hours: ${hours} | ` +
+          `Pay Rate: $${employee.payRate} | ` +
+          `Type: ${employee.employeeType}`,
       );
     });
+  }
+  // ========================================
+  // MENU METHOD
+  // Displays options and handles user choices
+  // ========================================
+  menu() {
+    // Keep showing the menu until the user chooses to exit
+    let running = true;
+    while (running) {
+      // Prompt the user for a selection
+      const choice = prompt(
+        "EMPLOYEE TRACKER\n\n" +
+          "1. Add Employee\n" +
+          "2. Remove Employee\n" +
+          "3. Edit Employee\n" +
+          "4. Display Employees\n" +
+          "5. Exit\n\n" +
+          "Enter a number (1-5):",
+      );
+
+      // Call the method
+      switch (choice) {
+        case "1":
+          console.log("Add Employee - selected");
+          break;
+        case "2":
+          console.log("Remove Employee - selected");
+          break;
+        case "3":
+          console.log("Edit Employee - selected");
+          break;
+        case "4":
+          this.display();
+          break;
+        case "5":
+        case null:
+          running = false;
+          console.log("Employee Tracker - closed.");
+          break;
+        default:
+          alert("Please enter a number from 1-5.");
+      }
+    }
   }
 }
 
