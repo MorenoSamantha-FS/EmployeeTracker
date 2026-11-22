@@ -100,6 +100,87 @@ class Main {
       );
     });
   }
+
+  // ========================================
+  // ADD METHOD
+  // Creates a new employee from user input
+  // ========================================
+
+  add() {
+    // Prompt the user for employee details
+    const type = prompt(
+      "What type of employee?\n" +
+        "1. Part-Time\n" +
+        "2. Manager\n\n" +
+        "Enter a number (1-2):",
+    );
+
+    // Exit without creating if 'Cancel' is clicked
+    if (type === null) {
+      return;
+    }
+
+    // Validate user input
+    if (type !== "1" && type !== "2") {
+      alert("Please select a valid option - 1 or 2.");
+      return;
+    }
+
+    // Prompt user for employee information
+    const input = prompt(
+      "Enter the employee's name, age, pay rate, and weekly hours\n" +
+        "separated by commas.\n\n" +
+        "For managers, weekly hours are not reuired as they are always full time.",
+    );
+
+    // Exit if the user cancels
+    if (input === null) {
+      return;
+    }
+
+    // Split user input into appropriate pieces
+    const details = input.split(",");
+
+    // Remove spaces from the name
+    const name = details[0]?.trim();
+
+    // Convert user input text into numbers
+    const age = Number(details[1]);
+    const payRate = Number(details[2]);
+    const hours = Number(details[3]);
+
+    // Validate input
+    if (
+      !name ||
+      !Number.isInteger(age) ||
+      age <= 0 ||
+      !Number.isFinite(payRate) ||
+      payRate <= 0 ||
+      (type === "1" && (!Number.isFinite(hours) || hours <= 0))
+    ) {
+      alert("Please enter complete and valid data for this employee.");
+      return;
+    }
+
+    // Create new employee object
+    let newEmployee;
+
+    if (type === "1") {
+      newEmployee = new PartTime(name, age, payRate, hours);
+    } else {
+      newEmployee = new Manager(name, age, payRate);
+    }
+
+    // Calculate the new employee's annual salary
+    newEmployee.calculatePay();
+
+    //Add new employee to the array
+    this.employees.push(newEmployee);
+
+    // Show updated list
+    this.display();
+  }
+
   // ========================================
   // MENU METHOD
   // Displays options and handles user choices
@@ -122,7 +203,7 @@ class Main {
       // Call the method
       switch (choice) {
         case "1":
-          console.log("Add Employee - selected");
+          this.add();
           break;
         case "2":
           console.log("Remove Employee - selected");
