@@ -226,6 +226,76 @@ class Main {
   }
 
   // ========================================
+  // EDIT METHOD
+  // Updates an employee's hourly pay rate
+  // ========================================
+
+  edit() {
+    // Show current employee list for user selection
+    this.display();
+
+    // Prompt user for employee to edit
+    const selection = prompt(
+      "Enter the number of the employee you want to edit:",
+    );
+
+    // Exit without changes if Cancel is clicked
+    if (selection === null) {
+      return;
+    }
+
+    // Convert user input to a number
+    const employeeNumber = Number(selection);
+
+    // Validate user input for employee number
+    if (
+      !Number.isInteger(employeeNumber) ||
+      employeeNumber < 1 ||
+      employeeNumber > this.employees.length ||
+      selection.trim() === ""
+    ) {
+      alert("Please enter a valid employee number.");
+      return;
+    }
+
+    // Adjust for index and array value mis-match
+    const employee = this.employees[employeeNumber - 1];
+
+    // Prompt user for new hourly pay rate
+    const input = prompt(`Enter the new hourly pay rate for ${employee.name}:`);
+
+    // Exit without changes if Cancel is clicked
+    if (input === null) {
+      return;
+    }
+
+    // Convert user input pay to a number
+    const newPayRate = Number(input);
+
+    // Validate new pay rate
+    if (
+      input.trim() === "" ||
+      !Number.isFinite(newPayRate) ||
+      newPayRate <= 0
+    ) {
+      alert("Please enter a valid hourly pay rate.");
+      return;
+    }
+
+    // Update selected employee's pay rate
+    employee.payRate = newPayRate;
+
+    // Recalculate annual salary
+    employee.calculatePay();
+
+    // Confirm change and display updated list
+    console.log(
+      `${employee.name}'s pay rate updated to $${newPayRate} per hour.`,
+    );
+    this.display();
+  }
+
+  // ========================================
   // MENU METHOD
   // Displays options and handles user choices
   // ========================================
@@ -253,7 +323,7 @@ class Main {
           this.remove();
           break;
         case "3":
-          console.log("Edit Employee - selected");
+          this.edit();
           break;
         case "4":
           this.display();
