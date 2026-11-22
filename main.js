@@ -182,6 +182,50 @@ class Main {
   }
 
   // ========================================
+  // REMOVE METHOD
+  // Removes an employee by name
+  // ========================================
+
+  remove() {
+    // Prompt user to remove an employee
+    const name = prompt("Enter the name of the employee to remove:");
+
+    // Exit without changes if Cancel is clicked
+    if (name === null) {
+      return;
+    }
+
+    //Remove extra spaces from the user input
+    const searchName = name.trim().toLowerCase();
+
+    // Make sure the user input is a name
+    if (!searchName) {
+      alert("Please enter an employee name.");
+      return;
+    }
+
+    // Save original number of eployees
+    const originalCount = this.employees.length;
+
+    // Filter out and keep employees whose names do not match search input
+    this.employees = this.employees.filter((employee) => {
+      return employee.name.toLowerCase() !== searchName;
+    });
+
+    // Check if it was removed
+    if (this.employees.length === originalCount) {
+      alert("Employee not found. Please try again.");
+      return;
+    }
+
+    // Confirm removal
+    console.log(`${name.trim()} has been removed.`);
+
+    // Update employee list
+    this.display();
+  }
+
+  // ========================================
   // MENU METHOD
   // Displays options and handles user choices
   // ========================================
@@ -206,7 +250,7 @@ class Main {
           this.add();
           break;
         case "2":
-          console.log("Remove Employee - selected");
+          this.remove();
           break;
         case "3":
           console.log("Edit Employee - selected");
