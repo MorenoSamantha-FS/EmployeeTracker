@@ -130,7 +130,7 @@ class Main {
     const input = prompt(
       "Enter the employee's name, age, pay rate, and weekly hours\n" +
         "separated by commas.\n\n" +
-        "For managers, weekly hours are not reuired as they are always full time.",
+        "For managers, weekly hours are not required as they are always full time.",
     );
 
     // Exit if the user cancels
@@ -204,7 +204,7 @@ class Main {
       return;
     }
 
-    // Save original number of eployees
+    // Save original number of employees
     const originalCount = this.employees.length;
 
     // Filter out and keep employees whose names do not match search input
